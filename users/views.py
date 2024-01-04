@@ -38,7 +38,19 @@ def registration(request):
 
 
 def profile(request):
-    form = UserProfileForm()
+    if request.method == 'POST':
+        form = UserProfileForm(
+            instance=request.user,
+            data=request.POST,
+            files=request.FILES,
+        )
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('users:profile'))
+        else:
+            print(form.errors)
+    else:
+        form = UserProfileForm(instance=request.user)
     context = {
         'title': 'Store - Профиль',
         'form': form,

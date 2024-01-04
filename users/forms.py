@@ -121,7 +121,8 @@ class UserProfileForm(UserChangeForm):
             attrs={
                 'class': 'custom-file-input',
             }
-        )
+        ),
+        required=False
     )
     username = forms.CharField(
         widget=forms.TextInput(
