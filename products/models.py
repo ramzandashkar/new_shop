@@ -7,6 +7,10 @@ class ProductCategory(models.Model):
     name = models.CharField(max_length=128, unique=True)
     description = models.TextField(null=True, blank=True)
 
+    class Meta:
+        verbose_name = 'Категория продукта'
+        verbose_name_plural = 'Категория продуктов'
+
     def __str__(self):
         return self.name
 
@@ -21,6 +25,10 @@ class Product(models.Model):
         ProductCategory,
         on_delete=models.CASCADE,
     )
+
+    class Meta:
+        verbose_name = 'Продукт'
+        verbose_name_plural = 'Продукты'
 
     def __str__(self):
         return f'Продукт: {self.name} | Категория: {self.category.name}'
@@ -46,6 +54,10 @@ class Basket(models.Model):
     quantity = models.PositiveSmallIntegerField(default=0)
     created_timestamp = models.DateTimeField(auto_now_add=True)
     objects = BasketQuerySet.as_manager()
+
+    class Meta:
+        verbose_name = 'корзина'
+        verbose_name_plural = 'корзина'
 
     def __str__(self):
         return f'Корзина для {self.user.email} | Продукт: {self.product.name}'
